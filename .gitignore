@@ -45,3 +45,6 @@ local.db*
 .taste-skill/
 !.env.example
 
+
+.vercel
+.env*
