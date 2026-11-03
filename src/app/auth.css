@@ -1,0 +1,35 @@
+.auth-form { display: grid; gap: 16px; }
+.auth-form .btn { width: 100%; min-height: 52px; }
+.auth-form .form-error:empty { display: none; }
+
+.pw-wrap { position: relative; }
+.pw-wrap .input { padding-right: 96px; }
+.pw-toggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--surface);
+  font-weight: 600;
+  font-size: var(--step-small);
+  cursor: pointer;
+}
+.pw-toggle:hover { background: var(--line); }
+
+.handle-wrap {
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  padding-left: 16px;
+}
+.handle-wrap:focus-within { border-color: var(--accent); }
+.handle-wrap span { font-weight: 600; color: var(--muted); }
+.handle-wrap .input { border: 0; padding-left: 2px; background: transparent; }
+
+.simple-disc-pink { background: var(--accent); }

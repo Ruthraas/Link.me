@@ -1,0 +1,210 @@
+/* ============================================================
+   link.me: tokens and base.
+   Motif: the circle of a profile photo. It is the button, the
+   bullet, the image mask and the big shape of the landing page.
+   ============================================================ */
+
+:root,
+[data-theme="light"] {
+  --bg: #cbe4f2;
+  --surface: #bcdcee;
+  --surface-2: #f1e3b5;
+  --paper: #f7fbfd;
+  --ink: #0a0a0a;
+  --muted: #3c5866;
+  --line: #9fc3d6;
+  --accent: #b0298f;
+  --accent-ink: #ffffff;
+  --sun: #ffc013;
+  --night: #0a0a0a;
+  --night-ink: #f2f2f2;
+  --danger: #b3261e;
+  --ok: #1d6b3a;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0b0d0e;
+  --surface: #15191b;
+  --surface-2: #1d2326;
+  --paper: #111517;
+  --ink: #eef3f5;
+  --muted: #9fb3bd;
+  --line: #2a3236;
+  --accent: #ef6cc9;
+  --accent-ink: #1a0614;
+  --danger: #ff8a80;
+  --ok: #7ed9a0;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    --bg: #0b0d0e;
+    --surface: #15191b;
+    --surface-2: #1d2326;
+    --paper: #111517;
+    --ink: #eef3f5;
+    --muted: #9fb3bd;
+    --line: #2a3236;
+    --accent: #ef6cc9;
+    --accent-ink: #1a0614;
+    --danger: #ff8a80;
+    --ok: #7ed9a0;
+    color-scheme: dark;
+  }
+}
+
+:root {
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-body: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --margin: clamp(16px, 2.2vw, 32px);
+  --radius: 999px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --font: var(--font-schibsted), system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--step-body);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+p { margin: 0; }
+
+a { color: inherit; }
+
+img { display: block; max-width: 100%; }
+
+button, input, textarea, select { font: inherit; color: inherit; letter-spacing: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- controls ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 48px;
+  padding: 0 1.4em;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 160ms var(--ease), background-color 160ms var(--ease), opacity 160ms;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(1px) scale(0.98); }
+.btn[disabled] { opacity: 0.55; cursor: progress; transform: none; }
+.btn-accent { background: var(--accent); color: var(--accent-ink); }
+.btn-quiet { background: var(--surface); color: var(--ink); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-small { min-height: 36px; padding: 0 1em; font-size: var(--step-small); }
+
+.field { display: grid; gap: 6px; }
+.field label { font-weight: 600; font-size: var(--step-small); }
+.field .hint { color: var(--muted); font-size: var(--step-small); }
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 16px;
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  color: var(--ink);
+  transition: border-color 140ms;
+}
+.input:hover { border-color: var(--muted); }
+.input:focus { outline: none; border-color: var(--accent); }
+.input[aria-invalid="true"] { border-color: var(--danger); }
+textarea.input { min-height: 96px; resize: vertical; }
+
+.form-error { color: var(--danger); font-weight: 600; font-size: var(--step-small); }
+.form-ok { color: var(--ok); font-weight: 600; font-size: var(--step-small); }
+
+/* segmented control */
+.seg {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--surface);
+  width: fit-content;
+}
+.seg button {
+  border: 0;
+  background: transparent;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background-color 140ms, color 140ms;
+}
+.seg button:hover { color: var(--ink); }
+.seg button[aria-checked="true"] { background: var(--paper); color: var(--ink); }
+.seg-small button { min-height: 30px; padding: 0 11px; font-size: 13px; }
+
+/* the motif as bullet */
+.dot {
+  display: inline-block;
+  width: 0.55em; height: 0.55em;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

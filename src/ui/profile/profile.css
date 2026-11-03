@@ -1,0 +1,150 @@
+/* Profile page. Every colour comes from inline custom properties set by ProfileView. */
+
+.pv {
+  --bgx: var(--l-bg);
+  --pink: var(--l-ink);
+  --pmuted: var(--l-muted);
+  --pbtn: var(--l-btn);
+  --pbtn-ink: var(--l-btn-ink);
+  --pground: var(--l-ground);
+  position: relative;
+  min-height: 100svh;
+  background: var(--bgx);
+  color: var(--pink);
+  font-family: var(--pv-font), var(--font);
+  display: flex;
+  justify-content: center;
+  padding: 56px 20px 40px;
+  isolation: isolate;
+}
+.pv[data-mode="dark"] {
+  --bgx: var(--d-bg);
+  --pink: var(--d-ink);
+  --pmuted: var(--d-muted);
+  --pbtn: var(--d-btn);
+  --pbtn-ink: var(--d-btn-ink);
+  --pground: var(--d-ground);
+}
+@media (prefers-color-scheme: dark) {
+  .pv[data-mode="auto"] {
+    --bgx: var(--d-bg);
+    --pink: var(--d-ink);
+    --pmuted: var(--d-muted);
+    --pbtn: var(--d-btn);
+    --pbtn-ink: var(--d-btn-ink);
+    --pground: var(--d-ground);
+  }
+}
+
+/* A photo wallpaper gets a flat scrim so text stays readable on any picture. */
+.pv-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--pground);
+  opacity: 0.55;
+}
+
+.pv-preview { min-height: 100%; padding: 40px 18px 28px; }
+
+.pv-column {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.pv-avatar {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--pbtn);
+  color: var(--pbtn-ink);
+  display: grid;
+  place-items: center;
+  font-size: 40px;
+  font-weight: 800;
+  outline: 4px solid var(--pground);
+  flex: none;
+}
+.pv-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.pv-name {
+  margin-top: 18px;
+  font-family: inherit;
+  font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+.pv-handle { margin-top: 6px; color: var(--pmuted); font-weight: 600; font-size: 0.95rem; }
+.pv-bio { margin-top: 12px; max-width: 40ch; line-height: 1.45; overflow-wrap: anywhere; }
+
+.pv-links {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  width: 100%;
+  display: grid;
+  gap: 14px;
+}
+
+.pv-link {
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
+  gap: 8px;
+  min-height: 60px;
+  padding: 8px 10px;
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.2;
+  background: var(--pbtn);
+  color: var(--pbtn-ink);
+  border: 2px solid var(--pbtn);
+  transition: transform 160ms var(--ease), opacity 160ms;
+}
+a.pv-link[href]:hover { transform: translateY(-2px) scale(1.01); }
+a.pv-link[href]:active { transform: scale(0.98); }
+.pv-title { overflow-wrap: anywhere; }
+
+.pv-badge, .pv-badge-space {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 800;
+  font-family: var(--font);
+  letter-spacing: 0;
+}
+.pv-badge { background: var(--pbtn-ink); color: var(--pbtn); }
+.pv-badge:empty { background: transparent; }
+.pv-badge:empty::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: currentColor; color: var(--pbtn-ink); }
+.pv-flag { font-size: 12px; font-weight: 600; opacity: 0.85; }
+
+/* button styles */
+.btn-pill-solid { border-radius: 999px; }
+.btn-pill-soft { border-radius: 999px; border-color: transparent; background: color-mix(in srgb, var(--pbtn) 55%, var(--pground)); color: var(--pink); }
+.btn-pill-soft .pv-badge { background: var(--pbtn); color: var(--pbtn-ink); }
+.btn-pill-outline { border-radius: 999px; background: color-mix(in srgb, var(--pground) 70%, transparent); color: var(--pink); border-color: var(--pink); }
+.btn-pill-outline .pv-badge { background: var(--pink); color: var(--pground); }
+.btn-rounded-solid { border-radius: 18px; }
+.btn-rounded-outline { border-radius: 18px; background: color-mix(in srgb, var(--pground) 70%, transparent); color: var(--pink); border-color: var(--pink); }
+.btn-rounded-outline .pv-badge { background: var(--pink); color: var(--pground); }
+.btn-square-solid { border-radius: 2px; }
+.btn-square-outline { border-radius: 2px; background: color-mix(in srgb, var(--pground) 70%, transparent); color: var(--pink); border-color: var(--pink); }
+.btn-square-outline .pv-badge { background: var(--pink); color: var(--pground); }
+.btn-hard-shadow { border-radius: 10px; border-color: var(--pink); box-shadow: 5px 5px 0 var(--pink); }
+a.btn-hard-shadow[href]:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--pink); }
+
+.pv-empty { margin-top: 28px; color: var(--pmuted); }
+
+.pv-footer { margin-top: 40px; font-size: 0.875rem; font-weight: 600; font-family: var(--font); }
+.pv-footer a { text-decoration: none; color: var(--pink); background: var(--pground); padding: 8px 14px; border-radius: 999px; }
+.pv-footer a:hover { text-decoration: underline; }
+.pv-footer span { color: var(--pmuted); }

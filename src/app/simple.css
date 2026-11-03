@@ -1,0 +1,51 @@
+/* Small pages: warning, 404, auth. One big disc (the motif) cropped by the screen. */
+
+.simple {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+  padding: 96px var(--margin) 48px;
+}
+.simple-disc {
+  position: absolute;
+  width: 120vh;
+  height: 120vh;
+  right: -40vh;
+  top: -20vh;
+  border-radius: 50%;
+  background: var(--sun);
+  z-index: 0;
+}
+.simple-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 520px);
+  display: grid;
+  gap: 20px;
+  padding: clamp(24px, 4vw, 44px);
+  background: var(--paper);
+  border-radius: 32px;
+}
+.simple-card h1 { font-size: var(--step-head); }
+.simple-lead { font-size: var(--step-lead); line-height: 1.3; }
+.simple-target { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.simple-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.simple-mark {
+  position: absolute;
+  top: 24px;
+  left: var(--margin);
+  z-index: 2;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.05em;
+  text-decoration: none;
+}
+.simple-foot { color: var(--muted); font-size: var(--step-small); }
+.simple-foot a { font-weight: 600; color: var(--ink); }
+
+@media (max-width: 700px) {
+  .simple { align-items: end; }
+  .simple-disc { width: 110vw; height: 110vw; right: -30vw; top: -20vw; }
+}
