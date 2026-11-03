@@ -1,13 +1,14 @@
 /**
  * Wallpaper catalogue: each pattern is an SVG tile drawn in the theme's own
- * accent colour, so one pattern works on every theme and in both modes.
+ * colours, so one pattern works on every theme and in both modes.
  * Output is a CSS `background` value. Colours only ever come from THEMES.
  */
 import type { Palette } from "./themes";
 
 export type WallpaperCategory = "fofo" | "masculino" | "neutro" | "foto";
 
-type Tile = { size: number; svg: (c: string) => string };
+/** `c` is the theme accent; full-colour tiles also read the palette. */
+type Tile = { size: number; svg: (c: string, p: Palette) => string };
 
 export type Wallpaper = { id: string; name: string; category: WallpaperCategory; tile?: Tile };
 
@@ -27,6 +28,39 @@ const flower = (x: number, y: number, r: number, c: string) =>
     return `<circle cx="${(x + Math.cos(a) * r).toFixed(1)}" cy="${(y + Math.sin(a) * r).toFixed(1)}" r="${r * 0.75}" fill="${c}"/>`;
   }).join("");
 
+/** Perceived lightness of a #rrggbb colour, 0 (black) to 1 (white). */
+function lightness(hex: string): number {
+  const n = parseInt(hex.slice(1), 16);
+  return (0.299 * ((n >> 16) & 255) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
+}
+
+/** A small bow: two rounded wings and a knot. */
+const bow = (x: number, y: number, s: number, fill: string) =>
+  `<g transform="translate(${x} ${y}) scale(${s})" fill="${fill}">` +
+  `<path d="M0 0 C-4-7-13-8-13 0 C-13 8-4 7 0 0Z"/><path d="M0 0 C4-7 13-8 13 0 C13 8 4 7 0 0Z"/>` +
+  `<circle r="3.2"/></g>`;
+
+/**
+ * Link.me's own kitten (original drawing): round face, pointed ears,
+ * dot eyes, heart nose and a bow tie under the chin.
+ * Light grounds get a white kitten; dark grounds a near-black one.
+ */
+const kitten = (x: number, y: number, s: number, p: Palette) => {
+  const dark = lightness(p.bg) < 0.4;
+  const face = dark ? "#231a20" : "#ffffff";
+  const line = dark ? p.muted : p.ink;
+  return (
+    `<g transform="translate(${x} ${y}) scale(${s})" stroke="${line}" stroke-width="2.2" stroke-linejoin="round">` +
+    `<path fill="${face}" d="M-15-4 L-14-21 L-3-12Z M15-4 L14-21 L3-12Z"/>` +
+    `<ellipse fill="${face}" cx="0" cy="0" rx="18" ry="15"/>` +
+    `<g stroke="none" fill="${line}"><circle cx="-7" cy="0" r="2.3"/><circle cx="7" cy="0" r="2.3"/></g>` +
+    `<path stroke="none" fill="${p.btn}" d="M0 7.5 C-4 4.5-3.5 2 0 3.6 C3.5 2 4 4.5 0 7.5Z"/>` +
+    `<g stroke="none" fill="${p.btn}" opacity=".55"><ellipse cx="-12" cy="5" rx="3.2" ry="2"/><ellipse cx="12" cy="5" rx="3.2" ry="2"/></g>` +
+    `</g>` +
+    bow(x, y + 18 * s, 0.75 * s, p.btn)
+  );
+};
+
 export const WALLPAPERS: Wallpaper[] = [
   { id: "liso", name: "Liso", category: "neutro" },
   { id: "bolinhas", name: "Bolinhas", category: "neutro", tile: { size: 28, svg: (c) => `<circle cx="7" cy="7" r="3" fill="${c}"/><circle cx="21" cy="21" r="3" fill="${c}"/>` } },
@@ -34,6 +68,8 @@ export const WALLPAPERS: Wallpaper[] = [
   { id: "estrelas", name: "Estrelas", category: "fofo", tile: { size: 70, svg: (c) => star(16, 18, 9, c) + star(52, 50, 6, c) + `<circle cx="54" cy="14" r="2" fill="${c}"/><circle cx="14" cy="56" r="2" fill="${c}"/>` } },
   { id: "flores", name: "Flores", category: "fofo", tile: { size: 80, svg: (c) => flower(20, 20, 6, c) + flower(60, 60, 4.5, c) } },
   { id: "bolhas", name: "Bolhas", category: "fofo", tile: { size: 120, svg: (c) => `<circle cx="24" cy="26" r="16" fill="${c}"/><circle cx="86" cy="40" r="9" fill="${c}"/><circle cx="60" cy="94" r="22" fill="${c}"/><circle cx="108" cy="104" r="6" fill="${c}"/>` } },
+  { id: "gatinhas", name: "Gatinhas", category: "fofo", tile: { size: 120, svg: (c, p) => kitten(32, 34, 1, p) + kitten(92, 94, 0.8, p) + heart(78, 18, 0.7, c) + heart(14, 84, 0.6, c) + `<circle cx="104" cy="52" r="2.5" fill="${c}"/><circle cx="48" cy="104" r="2.5" fill="${c}"/>` } },
+  { id: "lacinhos", name: "Lacinhos", category: "fofo", tile: { size: 72, svg: (c, p) => bow(18, 18, 0.9, p.btn) + bow(54, 54, 0.9, c) + `<circle cx="54" cy="16" r="2.5" fill="${p.btn}"/><circle cx="16" cy="56" r="2.5" fill="${c}"/>` } },
   { id: "xadrez", name: "Xadrez", category: "fofo", tile: { size: 48, svg: (c) => `<rect width="24" height="24" fill="${c}"/><rect x="24" y="24" width="24" height="24" fill="${c}"/>` } },
   { id: "carbono", name: "Fibra de carbono", category: "masculino", tile: { size: 16, svg: (c) => `<rect width="8" height="8" fill="${c}"/><rect x="8" y="8" width="8" height="8" fill="${c}"/><rect x="8" width="8" height="4" fill="${c}" opacity=".5"/><rect y="8" width="8" height="4" fill="${c}" opacity=".5"/>` } },
   { id: "camuflado", name: "Camuflado", category: "masculino", tile: { size: 160, svg: (c) => `<path fill="${c}" d="M10 20c20-14 46 2 40 22s-30 18-44 6S-4 30 10 20Z"/><path fill="${c}" d="M92 70c22-8 52 8 44 30s-40 22-52 6-14-28 8-36Z"/><path fill="${c}" d="M30 112c14-6 34 4 30 18s-24 16-34 8-10-20 4-26Z"/><path fill="${c}" d="M112 10c10-4 26 2 24 12s-16 12-24 6-8-14 0-18Z"/>` } },
@@ -51,8 +87,8 @@ export function isWallpaperId(id: string): boolean {
   return WALLPAPERS.some((w) => w.id === id);
 }
 
-function tileUri(tile: Tile, colour: string): string {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${tile.size}" height="${tile.size}" viewBox="0 0 ${tile.size} ${tile.size}">${tile.svg(colour)}</svg>`;
+function tileUri(tile: Tile, palette: Palette): string {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${tile.size}" height="${tile.size}" viewBox="0 0 ${tile.size} ${tile.size}">${tile.svg(palette.accent, palette)}</svg>`;
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
 
@@ -66,5 +102,5 @@ export function wallpaperBackground(id: string, palette: Palette, imageUrl?: str
   }
   const wp = WALLPAPERS.find((w) => w.id === id);
   if (!wp?.tile) return palette.bg;
-  return `${tileUri(wp.tile, palette.accent)} 0 0 / ${wp.tile.size}px ${wp.tile.size}px repeat, ${palette.bg}`;
+  return `${tileUri(wp.tile, palette)} 0 0 / ${wp.tile.size}px ${wp.tile.size}px repeat, ${palette.bg}`;
 }

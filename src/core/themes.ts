@@ -56,6 +56,12 @@ export const THEMES: Theme[] = [
   { id: "menta", name: "Menta", category: "fofo", wallpaper: "xadrez", font: "fredoka", button: "pill-soft",
     light: p("#e6fbf3", "#123d32", "#3d6a5d", "#3ec79f", "#0b2a21", "#c3f0df"),
     dark: p("#0f2620", "#dcfbee", "#9fd6c1", "#5fd3b0", "#0f2620", "#1d4639") },
+  { id: "gatinha", name: "Gatinha", category: "fofo", wallpaper: "gatinhas", font: "fredoka", button: "pill-solid",
+    light: p("#fff4f8", "#5a1430", "#8a4561", "#ff4f8b", "#ffffff", "#ffd3e2"),
+    dark: p("#170d13", "#ffe3ee", "#e8a9c3", "#ff5c93", "#170d13", "#3f1a2d") },
+  { id: "gatinha-noturna", name: "Gatinha noturna", category: "fofo", wallpaper: "gatinhas", font: "fredoka", button: "pill-solid",
+    light: p("#ffdcea", "#1a0b13", "#5c2c44", "#1a0b13", "#ffc2da", "#ffb6d1"),
+    dark: p("#0c090b", "#ffd6e7", "#d99bb7", "#ff7aa8", "#0c090b", "#2b1a24") },
   // Masculinos
   { id: "grafite", name: "Grafite", category: "masculino", wallpaper: "carbono", font: "oswald", button: "square-solid",
     light: p("#e4e6e9", "#121418", "#454a53", "#1d2026", "#f2f3f5", "#d3d6db"),

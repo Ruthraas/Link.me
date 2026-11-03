@@ -40,10 +40,16 @@ export const SAMPLES: Sample[] = [
     fact: "Tema Morango, wallpaper Corações, fonte Redondinha",
   },
   {
-    profile: sample("lavanda", "bia.estrela", "Bia Estrela", "Desenho, café e lives de pintura às quintas, 20h.", "ruysch", [
+    profile: sample("gatinha", "bia.estrela", "Bia Estrela", "Desenho, café e lives de pintura às quintas, 20h.", "ruysch", [
       ["Live de quinta", "TW"], ["Meus pincéis favoritos", ""], ["Vídeos curtos", "TT"],
     ]),
-    fact: "Tema Lavanda, wallpaper Estrelas, botão Pílula",
+    fact: "Tema Gatinha, wallpaper Gatinhas, rosa e branco",
+  },
+  {
+    profile: sample("gatinha-noturna", "luna.noite", "Luna", "Unhas, maquiagem e muito preto com rosa. Agenda aberta.", "flores", [
+      ["Agendar horário", "WA"], ["Trabalhos recentes", "IG"], ["Tutoriais", "TT"],
+    ], "dark"),
+    fact: "Tema Gatinha noturna no escuro",
   },
   {
     profile: sample("oceano", "rafa.surf", "Rafa Surf", "Aulas de surf em Itacaré. Prancha inclusa, só traz protetor.", "onda", [

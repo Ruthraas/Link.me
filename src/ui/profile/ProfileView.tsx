@@ -58,9 +58,11 @@ export function ProfileView({ profile, preview = false, forceMode, headingLevel 
             <span>{initials(profile.displayName)}</span>
           )}
         </div>
-        <Heading className="pv-name">{profile.displayName}</Heading>
-        <p className="pv-handle">@{profile.username}</p>
-        {profile.bio ? <p className="pv-bio">{profile.bio}</p> : null}
+        <div className="pv-intro">
+          <Heading className="pv-name">{profile.displayName}</Heading>
+          <p className="pv-handle">@{profile.username}</p>
+          {profile.bio ? <p className="pv-bio">{profile.bio}</p> : null}
+        </div>
 
         {profile.links.length ? (
           <ul className="pv-links">
