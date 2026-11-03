@@ -61,6 +61,29 @@ const kitten = (x: number, y: number, s: number, p: Palette) => {
   );
 };
 
+/** Fixed pink for the cute-goth pattern: it pairs with purple and black on every palette. */
+const PINK = "#ff8fc8";
+
+/** Original cute skull: round head, big eyes, little teeth, optional bow. */
+const skull = (x: number, y: number, s: number, p: Palette) => {
+  const dark = lightness(p.bg) < 0.4;
+  const bone = dark ? p.muted : "#ffffff";
+  const line = dark ? p.bg : p.ink;
+  return (
+    `<g transform="translate(${x} ${y}) scale(${s})" stroke="${line}" stroke-width="2" stroke-linejoin="round">` +
+    `<path fill="${bone}" d="M-13 2 C-13-12 13-12 13 2 C13 8 9 9 8 12 L-8 12 C-9 9-13 8-13 2Z"/>` +
+    `<g stroke="none" fill="${line}"><ellipse cx="-5.5" cy="1" rx="3.6" ry="4.2"/><ellipse cx="5.5" cy="1" rx="3.6" ry="4.2"/>` +
+    `<path d="M0 5.5 L-1.8 8.5 L1.8 8.5Z"/></g>` +
+    `<path fill="none" d="M-4 12 V9.5 M0 12 V9.5 M4 12 V9.5"/>` +
+    `</g>` +
+    bow(x + 9 * s, y - 9 * s, 0.6 * s, PINK)
+  );
+};
+
+/** Crescent moon. */
+const moon = (x: number, y: number, r: number, fill: string) =>
+  `<path fill="${fill}" d="M${x} ${y - r} A${r} ${r} 0 1 0 ${x} ${y + r} A${r * 0.78} ${r * 0.78} 0 1 1 ${x} ${y - r}Z"/>`;
+
 export const WALLPAPERS: Wallpaper[] = [
   { id: "liso", name: "Liso", category: "neutro" },
   { id: "bolinhas", name: "Bolinhas", category: "neutro", tile: { size: 28, svg: (c) => `<circle cx="7" cy="7" r="3" fill="${c}"/><circle cx="21" cy="21" r="3" fill="${c}"/>` } },
@@ -69,6 +92,16 @@ export const WALLPAPERS: Wallpaper[] = [
   { id: "flores", name: "Flores", category: "fofo", tile: { size: 80, svg: (c) => flower(20, 20, 6, c) + flower(60, 60, 4.5, c) } },
   { id: "bolhas", name: "Bolhas", category: "fofo", tile: { size: 120, svg: (c) => `<circle cx="24" cy="26" r="16" fill="${c}"/><circle cx="86" cy="40" r="9" fill="${c}"/><circle cx="60" cy="94" r="22" fill="${c}"/><circle cx="108" cy="104" r="6" fill="${c}"/>` } },
   { id: "gatinhas", name: "Gatinhas", category: "fofo", tile: { size: 120, svg: (c, p) => kitten(32, 34, 1, p) + kitten(92, 94, 0.8, p) + heart(78, 18, 0.7, c) + heart(14, 84, 0.6, c) + `<circle cx="104" cy="52" r="2.5" fill="${c}"/><circle cx="48" cy="104" r="2.5" fill="${c}"/>` } },
+  { id: "xadrez-gatinhas", name: "Xadrez com gatinhas", category: "fofo", tile: { size: 96, svg: (c, p) =>
+      `<g fill="${c}" opacity=".55"><rect y="0" width="96" height="12"/><rect y="24" width="96" height="12"/><rect y="48" width="96" height="12"/><rect y="72" width="96" height="12"/></g>` +
+      `<g fill="${c}" opacity=".55"><rect x="0" width="12" height="96"/><rect x="24" width="12" height="96"/><rect x="48" width="12" height="96"/><rect x="72" width="12" height="96"/></g>` +
+      kitten(30, 34, 0.85, p) + bow(78, 76, 0.8, p.btn) } },
+  { id: "lacos-bolinhas", name: "Laços e bolinhas", category: "fofo", tile: { size: 80, svg: (c, p) =>
+      bow(22, 22, 1.05, p.btn) + bow(62, 62, 0.8, p.btn) +
+      `<g fill="${p.btn}" opacity=".35"><circle cx="62" cy="20" r="4"/><circle cx="20" cy="62" r="4"/><circle cx="42" cy="42" r="2.5"/><circle cx="4" cy="40" r="2.5"/><circle cx="40" cy="4" r="2.5"/></g>` } },
+  { id: "noite-fofa", name: "Noite fofa", category: "fofo", tile: { size: 120, svg: (c, p) =>
+      skull(32, 36, 1, p) + moon(92, 30, 12, PINK) + kitten(88, 92, 0.75, p) +
+      star(26, 96, 6, c) + star(60, 64, 3.5, c) + star(110, 64, 3, c) + `<circle cx="60" cy="12" r="2" fill="${c}"/>` } },
   { id: "lacinhos", name: "Lacinhos", category: "fofo", tile: { size: 72, svg: (c, p) => bow(18, 18, 0.9, p.btn) + bow(54, 54, 0.9, c) + `<circle cx="54" cy="16" r="2.5" fill="${p.btn}"/><circle cx="16" cy="56" r="2.5" fill="${c}"/>` } },
   { id: "xadrez", name: "Xadrez", category: "fofo", tile: { size: 48, svg: (c) => `<rect width="24" height="24" fill="${c}"/><rect x="24" y="24" width="24" height="24" fill="${c}"/>` } },
   { id: "carbono", name: "Fibra de carbono", category: "masculino", tile: { size: 16, svg: (c) => `<rect width="8" height="8" fill="${c}"/><rect x="8" y="8" width="8" height="8" fill="${c}"/><rect x="8" width="8" height="4" fill="${c}" opacity=".5"/><rect y="8" width="8" height="4" fill="${c}" opacity=".5"/>` } },

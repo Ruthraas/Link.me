@@ -43,13 +43,25 @@ export const SAMPLES: Sample[] = [
     profile: sample("gatinha", "bia.estrela", "Bia Estrela", "Desenho, café e lives de pintura às quintas, 20h.", "ruysch", [
       ["Live de quinta", "TW"], ["Meus pincéis favoritos", ""], ["Vídeos curtos", "TT"],
     ]),
-    fact: "Tema Gatinha, wallpaper Gatinhas, rosa e branco",
+    fact: "Tema Gatinha, wallpaper Xadrez com gatinhas",
   },
   {
     profile: sample("gatinha-noturna", "luna.noite", "Luna", "Unhas, maquiagem e muito preto com rosa. Agenda aberta.", "flores", [
       ["Agendar horário", "WA"], ["Trabalhos recentes", "IG"], ["Tutoriais", "TT"],
     ], "dark"),
     fact: "Tema Gatinha noturna no escuro",
+  },
+  {
+    profile: sample("laco-vermelho", "mel.docinhos", "Mel Docinhos", "Brigadeiros e bolos de pote. Encomendas com 2 dias de antecedência.", "ruysch", [
+      ["Fazer encomenda", "WA"], ["Cardápio", ""], ["Fotos dos doces", "IG"],
+    ]),
+    fact: "Tema Laço vermelho, wallpaper Laços e bolinhas",
+  },
+  {
+    profile: sample("gotica-fofa", "nyx.desenhos", "Nyx", "Ilustrações fofas e um pouco sombrias. Comissões abertas.", "livros", [
+      ["Pedir comissão", ""], ["Portfólio", "IG"], ["Lives de desenho", "TW"],
+    ], "dark"),
+    fact: "Tema Gótica fofa no escuro, wallpaper Noite fofa",
   },
   {
     profile: sample("oceano", "rafa.surf", "Rafa Surf", "Aulas de surf em Itacaré. Prancha inclusa, só traz protetor.", "onda", [
