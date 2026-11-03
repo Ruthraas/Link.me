@@ -60,8 +60,8 @@ e a camada de apresentação decide como mostrar.
 
 ## Créditos
 
-Os wallpapers `public/wallpapers/masculino-1..3.webp` foram fornecidos pelo dono do projeto
-e mostram personagens de terceiros. Confirme os direitos de uso antes de lançar em produção.
+Os wallpapers em `public/wallpapers/` (feminino-1..6 e masculino-1..3) foram escolhidos pelo dono do projeto
+no Pinterest e mostram personagens de terceiros (como Hello Kitty, da Sanrio). Confirme os direitos de uso antes de lançar em produção.
 
 As fotos de perfil dos exemplos da página inicial são obras em domínio público via Wikimedia Commons
 (lista completa no rodapé do site e em `src/ui/landing/samples.ts`).
