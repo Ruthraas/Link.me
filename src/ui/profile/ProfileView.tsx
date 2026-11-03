@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { initials, type ProfileData } from "@/core/profile";
 import { getFont, getTheme, isButtonId, type Palette } from "@/core/themes";
-import { wallpaperBackground } from "@/core/wallpapers";
+import { isPictureWallpaper, wallpaperBackground } from "@/core/wallpapers";
 import "./profile.css";
 
 /**
@@ -42,7 +42,7 @@ type Props = {
 export function ProfileView({ profile, preview = false, forceMode, headingLevel = 1 }: Props) {
   const Heading = headingLevel === 1 ? "h1" : headingLevel === 2 ? "h2" : "p";
   const button = isButtonId(profile.buttonStyle) ? profile.buttonStyle : "pill-solid";
-  const hasPhotoWallpaper = profile.wallpaperId === "foto" && !!profile.wallpaperUrl;
+  const hasPhotoWallpaper = isPictureWallpaper(profile.wallpaperId, profile.wallpaperUrl);
   return (
     <div
       className={`pv${preview ? " pv-preview" : ""}${hasPhotoWallpaper ? " pv-photo" : ""}`}

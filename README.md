@@ -60,5 +60,8 @@ e a camada de apresentação decide como mostrar.
 
 ## Créditos
 
+Os wallpapers `public/wallpapers/masculino-1..3.webp` foram fornecidos pelo dono do projeto
+e mostram personagens de terceiros. Confirme os direitos de uso antes de lançar em produção.
+
 As fotos de perfil dos exemplos da página inicial são obras em domínio público via Wikimedia Commons
 (lista completa no rodapé do site e em `src/ui/landing/samples.ts`).

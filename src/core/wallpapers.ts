@@ -10,7 +10,8 @@ export type WallpaperCategory = "fofo" | "masculino" | "neutro" | "foto";
 /** `c` is the theme accent; full-colour tiles also read the palette. */
 type Tile = { size: number; svg: (c: string, p: Palette) => string };
 
-export type Wallpaper = { id: string; name: string; category: WallpaperCategory; tile?: Tile };
+/** `tile` repeats a small SVG pattern; `image` covers the page with one static picture from /public. */
+export type Wallpaper = { id: string; name: string; category: WallpaperCategory; tile?: Tile; image?: string };
 
 const heart = (x: number, y: number, s: number, c: string) =>
   `<path transform="translate(${x} ${y}) scale(${s})" fill="${c}" d="M10 18 C-6 8 2-4 10 4 C18-4 26 8 10 18Z"/>`;
@@ -111,10 +112,19 @@ export const WALLPAPERS: Wallpaper[] = [
   { id: "losangos", name: "Losangos", category: "masculino", tile: { size: 44, svg: (c) => `<path fill="${c}" d="M22 2 42 22 22 42 2 22Z" opacity=".7"/>` } },
   { id: "grade", name: "Grade", category: "masculino", tile: { size: 32, svg: (c) => `<path d="M32 0H0v32" fill="none" stroke="${c}" stroke-width="2"/>` } },
   { id: "triangulos", name: "Triângulos", category: "neutro", tile: { size: 56, svg: (c) => `<path fill="${c}" d="M0 56 28 0l28 56Z" opacity=".55"/>` } },
+  { id: "masculino-1", name: "Pôr do sol", category: "masculino", image: "/wallpapers/masculino-1.webp" },
+  { id: "masculino-2", name: "Cerejeiras", category: "masculino", image: "/wallpapers/masculino-2.webp" },
+  { id: "masculino-3", name: "Escadaria", category: "masculino", image: "/wallpapers/masculino-3.webp" },
   { id: "foto", name: "Sua foto", category: "foto" },
 ];
 
 export const CUSTOM_WALLPAPER_ID = "foto";
+
+/** Picture wallpapers (catalogue images or the user's photo) get a scrim under the text. */
+export function isPictureWallpaper(id: string, imageUrl?: string | null): boolean {
+  if (id === CUSTOM_WALLPAPER_ID) return !!imageUrl;
+  return !!WALLPAPERS.find((w) => w.id === id)?.image;
+}
 
 export function isWallpaperId(id: string): boolean {
   return WALLPAPERS.some((w) => w.id === id);
@@ -134,6 +144,7 @@ export function wallpaperBackground(id: string, palette: Palette, imageUrl?: str
     return `center / cover no-repeat url("${imageUrl}"), ${palette.bg}`;
   }
   const wp = WALLPAPERS.find((w) => w.id === id);
+  if (wp?.image) return `center / cover no-repeat url("${wp.image}"), ${palette.bg}`;
   if (!wp?.tile) return palette.bg;
   return `${tileUri(wp.tile, palette)} 0 0 / ${wp.tile.size}px ${wp.tile.size}px repeat, ${palette.bg}`;
 }

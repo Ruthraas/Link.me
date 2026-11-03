@@ -43,7 +43,7 @@
   inset: 0;
   z-index: -1;
   background: var(--pground);
-  opacity: 0.55;
+  opacity: 0.22;
 }
 
 .pv-preview { min-height: 100%; padding: 40px 18px 28px; }

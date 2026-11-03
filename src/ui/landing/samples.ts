@@ -15,6 +15,7 @@ function sample(
   avatar: string,
   links: [string, string][],
   mode: "light" | "dark" = "light",
+  wallpaperId?: string,
 ): ProfileData {
   const theme = getTheme(themeId);
   return {
@@ -24,7 +25,7 @@ function sample(
     avatarUrl: `/samples/${avatar}.webp`,
     themeId,
     mode,
-    wallpaperId: theme.wallpaper,
+    wallpaperId: wallpaperId ?? theme.wallpaper,
     wallpaperUrl: null,
     buttonStyle: theme.button,
     fontId: theme.font,
@@ -66,20 +67,20 @@ export const SAMPLES: Sample[] = [
   {
     profile: sample("oceano", "rafa.surf", "Rafa Surf", "Aulas de surf em Itacaré. Prancha inclusa, só traz protetor.", "onda", [
       ["Agendar aula", "WA"], ["Previsão das ondas", ""], ["Canal no YouTube", "YT"],
-    ]),
-    fact: "Tema Oceano, wallpaper Ondas, botão Arredondado",
+    ], "light", "masculino-1"),
+    fact: "Tema Oceano, wallpaper Pôr do sol",
   },
   {
     profile: sample("floresta", "trilha.norte", "Trilha Norte", "Guias de trilha na Serra da Mantiqueira. Saídas todo sábado.", "floresta", [
       ["Próximas saídas", ""], ["Grupo no WhatsApp", "WA"], ["Fotos das trilhas", "IG"],
-    ], "dark"),
-    fact: "Tema Floresta no escuro, wallpaper Camuflado",
+    ], "dark", "masculino-2"),
+    fact: "Tema Floresta no escuro, wallpaper Cerejeiras",
   },
   {
     profile: sample("garagem", "oficina77", "Oficina 77", "Restauro de motos antigas. Orçamento pelo WhatsApp.", "moto", [
       ["Pedir orçamento", "WA"], ["Antes e depois", "IG"], ["Peças à venda", ""],
-    ], "dark"),
-    fact: "Tema Garagem, wallpaper Listras, botão Sombra dura",
+    ], "dark", "masculino-3"),
+    fact: "Tema Garagem, wallpaper Escadaria, botão Sombra dura",
   },
   {
     profile: sample("papel", "sebo.da.lu", "Sebo da Lu", "Livros usados com cheiro de livro. Entregamos em São Paulo.", "livros", [
