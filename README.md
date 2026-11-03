@@ -4,6 +4,8 @@
 Plataforma open source de "link na bio": cada pessoa cria a própria página, escolhe tema fofo,
 masculino ou neutro, modo claro ou escuro, wallpaper e estilo de botão, e acompanha os cliques num painel.
 
+**No ar:** https://lkme.vercel.app (perfis em `lkme.vercel.app/nome-da-pessoa`)
+
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FRuthraas%2FLink.me&env=DATABASE_URL,DATABASE_AUTH_TOKEN,NEXT_PUBLIC_SITE_URL&envDescription=Banco%20Turso%20(libsql%3A%2F%2F...)%20e%20URL%20do%20site)
 
 <p align="center">
