@@ -9,8 +9,18 @@ const caveat = Caveat({ subsets: ["latin"], weight: ["600"], variable: "--font-c
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-playfair", preload: false });
 const oswald = Oswald({ subsets: ["latin"], weight: ["400", "600"], variable: "--font-oswald", preload: false });
 
+/** Site URL from the environment, tolerant of stray BOM/whitespace; falls back to localhost. */
+function siteUrl(): URL {
+  const raw = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/^﻿/, "").trim();
+  try {
+    return new URL(raw || "http://localhost:3000");
+  } catch {
+    return new URL("http://localhost:3000");
+  }
+}
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: siteUrl(),
   title: { default: "link.me: todos os seus links numa página redonda", template: "%s · link.me" },
   description: "Crie sua página de links com foto redonda, temas fofos ou masculinos, modo claro ou escuro e wallpaper do seu jeito.",
 };
