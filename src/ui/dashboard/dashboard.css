@@ -69,15 +69,15 @@
 
 .dash-split {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 380px;
-  gap: 32px;
-  padding: 32px;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 28px;
+  padding: 28px;
   align-items: start;
 }
-.dash-single { display: grid; gap: 20px; padding: 32px; max-width: 980px; }
+.dash-single { display: grid; gap: 18px; padding: 28px; max-width: 980px; }
 .dash-work { display: grid; gap: 20px; min-width: 0; }
 
-.dash-title h1 { font-size: 32px; letter-spacing: -0.04em; }
+.dash-title h1 { font-size: 26px; letter-spacing: -0.04em; }
 .dash-title p { margin-top: 8px; color: var(--muted); }
 .dash-title-row { display: flex; justify-content: space-between; align-items: end; gap: 16px; }
 .save-state { font-size: 14px; font-weight: 600; min-height: 1.5em; }
@@ -89,11 +89,11 @@
 .panel {
   display: grid;
   gap: 14px;
-  padding: 24px;
+  padding: 20px;
   border-radius: 16px;
   background: color-mix(in srgb, var(--bg) 35%, var(--paper));
 }
-.panel h2 { font-size: 20px; letter-spacing: -0.03em; line-height: 1.1; }
+.panel h2 { font-size: 18px; letter-spacing: -0.03em; line-height: 1.1; }
 .panel-sub { color: var(--muted); font-size: 15px; }
 .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 .panel-danger { background: color-mix(in srgb, var(--danger) 8%, var(--paper)); }
@@ -175,15 +175,15 @@
 .preview-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .preview-head h2 { font-size: 16px; letter-spacing: -0.02em; }
 .preview-screen {
-  height: min(720px, calc(100svh - 120px));
-  border-radius: 36px;
+  height: min(660px, calc(100svh - 110px));
+  border-radius: 32px;
   overflow: auto;
   border: 8px solid var(--ink);
   background: var(--ink);
 }
 
 /* appearance */
-.profile-grid { display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: start; }
+.profile-grid { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: start; }
 .profile-fields { display: grid; gap: 14px; }
 .row-end { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .handle-wrap {
@@ -195,7 +195,7 @@
 
 .picker { display: grid; gap: 10px; justify-items: start; }
 .picker-frame {
-  width: 140px; height: 140px; border-radius: 50%; overflow: hidden;
+  width: 120px; height: 120px; border-radius: 50%; overflow: hidden;
   display: grid; place-items: center; background: var(--ink); color: var(--paper); font-weight: 800; font-size: 44px;
 }
 .picker-frame img { width: 100%; height: 100%; object-fit: cover; }
@@ -205,7 +205,7 @@
 .picker label.btn { cursor: pointer; }
 .picker .hint { font-size: 13px; color: var(--muted); max-width: 34ch; }
 
-.theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 12px; }
+.theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
 .theme-tile, .wp-tile, .choice {
   display: grid; gap: 8px; justify-items: start; padding: 8px; border: 2px solid transparent;
   border-radius: 18px; background: none; cursor: pointer; font-weight: 600; font-size: 14px; text-align: left;
@@ -221,7 +221,7 @@
 .theme-bar { width: 70%; height: 12%; border-radius: 999px; }
 .theme-bar.short { width: 55%; }
 
-.wp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
+.wp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; }
 .wp-swatch { width: 100%; aspect-ratio: 1; border-radius: 50%; }
 
 .choice-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
@@ -239,7 +239,7 @@
 .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 0; }
 .kpis div { display: grid; gap: 4px; }
 .kpis dt { font-size: 14px; color: var(--muted); font-weight: 600; }
-.kpis dd { margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.kpis dd { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
 .kpis div:first-child dd { color: var(--accent); }
 .legend { display: flex; gap: 16px; font-size: 14px; color: var(--muted); }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }

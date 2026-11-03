@@ -50,7 +50,7 @@
 
 .pv-column {
   width: 100%;
-  max-width: 560px;
+  max-width: 520px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,15 +58,15 @@
 }
 
 .pv-avatar {
-  width: 112px;
-  height: 112px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   overflow: hidden;
   background: var(--pbtn);
   color: var(--pbtn-ink);
   display: grid;
   place-items: center;
-  font-size: 40px;
+  font-size: 34px;
   font-weight: 800;
   outline: 4px solid var(--pground);
   flex: none;
@@ -87,7 +87,7 @@
 .pv-name {
   margin-top: 0;
   font-family: inherit;
-  font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  font-size: clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
   overflow-wrap: anywhere;
@@ -106,11 +106,11 @@
 
 .pv-link {
   display: grid;
-  grid-template-columns: 40px 1fr 40px;
+  grid-template-columns: 36px 1fr 36px;
   align-items: center;
   gap: 8px;
-  min-height: 60px;
-  padding: 8px 10px;
+  min-height: 54px;
+  padding: 7px 9px;
   text-decoration: none;
   font-weight: 600;
   line-height: 1.2;
@@ -124,11 +124,11 @@ a.pv-link[href]:active { transform: scale(0.98); }
 .pv-title { overflow-wrap: anywhere; }
 
 .pv-badge, .pv-badge-space {
-  width: 40px; height: 40px;
+  width: 36px; height: 36px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
   font-family: var(--font);
   letter-spacing: 0;
