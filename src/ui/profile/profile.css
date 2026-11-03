@@ -153,9 +153,69 @@ a.pv-link[href]:active { transform: scale(0.98); }
 .btn-hard-shadow { border-radius: 10px; border-color: var(--pink); box-shadow: 5px 5px 0 var(--pink); }
 a.btn-hard-shadow[href]:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--pink); }
 
+/* Neon RGB: rainbow border on a solid dark capsule; hue-rotate keeps the colours moving
+   (white text and the dark fill are unaffected by the rotation). */
+@keyframes neon-hue { to { filter: hue-rotate(360deg); } }
+.btn-neon-rgb {
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#0c0a12, #0c0a12) padding-box,
+    conic-gradient(#ff004c, #ff8a00, #ffe600, #00ff85, #00c8ff, #7a5cff, #ff00d4, #ff004c) border-box;
+  color: #ffffff;
+  box-shadow: -5px 0 16px rgb(255 0 76 / 0.5), 5px 0 16px rgb(0 200 255 / 0.5), 0 0 24px rgb(122 92 255 / 0.35);
+  text-shadow: 0 0 8px rgb(255 255 255 / 0.5);
+  animation: neon-hue 4s linear infinite;
+}
+.btn-neon-rgb .pv-badge { background: rgb(255 255 255 / 0.14); color: #ffffff; }
+.btn-neon-rgb .pv-badge:empty::after { color: #ffffff; }
+
+/* Neon in the theme's own colour. */
+.btn-neon {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pground) 55%, transparent);
+  color: var(--pink);
+  border-color: var(--pbtn);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--pbtn) 70%, transparent), inset 0 0 10px color-mix(in srgb, var(--pbtn) 45%, transparent);
+  text-shadow: 0 0 6px color-mix(in srgb, var(--pbtn) 80%, transparent);
+}
+.btn-neon .pv-badge { background: var(--pbtn); color: var(--pbtn-ink); }
+a.btn-neon[href]:hover { box-shadow: 0 0 18px var(--pbtn), inset 0 0 12px color-mix(in srgb, var(--pbtn) 55%, transparent); }
+
+/* Translucent: frosted glass over the wallpaper. */
+.btn-translucido {
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--pground) 34%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
+  border: 1px solid color-mix(in srgb, var(--pink) 22%, transparent);
+  color: var(--pink);
+}
+.btn-translucido .pv-badge { background: color-mix(in srgb, var(--pink) 14%, transparent); color: var(--pink); }
+.btn-translucido .pv-badge:empty::after { color: var(--pink); }
+a.btn-translucido[href]:hover { background: color-mix(in srgb, var(--pground) 50%, transparent); }
+
+/* 3D bubble: thick bottom edge that presses down on tap. */
+.btn-bolha {
+  border-radius: 999px;
+  border-color: transparent;
+  box-shadow: inset 0 -5px 0 color-mix(in srgb, var(--pbtn) 60%, #000), 0 4px 0 color-mix(in srgb, var(--pbtn) 55%, #000);
+}
+a.btn-bolha[href]:active { transform: translateY(3px); box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--pbtn) 60%, #000), 0 1px 0 color-mix(in srgb, var(--pbtn) 55%, #000); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-neon-rgb { animation: none; }
+}
+
+/* Small live samples in the dashboard's button picker. */
+.pv.pv-mini { min-height: 0; padding: 10px; border-radius: 14px; display: block; }
+.pv-mini .pv-link { min-height: 40px; font-size: 13px; grid-template-columns: 26px 1fr 8px; padding: 5px 7px; }
+.pv-mini .pv-badge, .pv-mini .pv-badge-space { width: 26px; height: 26px; font-size: 10px; }
+.pv-mini .pv-badge-space { width: 8px; }
+
 .pv-empty { margin-top: 28px; color: var(--pmuted); }
 
 .pv-footer { margin-top: 40px; font-size: 0.875rem; font-weight: 600; font-family: var(--font); }
 .pv-footer a { text-decoration: none; color: var(--pink); background: var(--pground); padding: 8px 14px; border-radius: 999px; }
 .pv-footer a:hover { text-decoration: underline; }
-.pv-footer span { color: var(--pmuted); }
+.pv-footer span { color: var(--pmuted); background: var(--pground); padding: 6px 12px; border-radius: 999px; }

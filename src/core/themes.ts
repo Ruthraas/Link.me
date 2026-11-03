@@ -129,6 +129,10 @@ export const BUTTONS: { id: string; name: string }[] = [
   { id: "square-solid", name: "Reto" },
   { id: "square-outline", name: "Reto contorno" },
   { id: "hard-shadow", name: "Sombra dura" },
+  { id: "neon-rgb", name: "Neon RGB" },
+  { id: "neon", name: "Neon na cor do tema" },
+  { id: "translucido", name: "Translúcido" },
+  { id: "bolha", name: "Bolha 3D" },
 ];
 export function isButtonId(id: string): boolean {
   return BUTTONS.some((b) => b.id === id);

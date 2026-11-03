@@ -5,6 +5,7 @@ import { removeImageAction, updateAppearanceAction, updateProfileAction, uploadI
 import { initials, type ProfileData } from "@/core/profile";
 import { BUTTONS, CATEGORY_LABEL, FONTS, getTheme, MODES, THEMES, type ProfileMode, type ThemeCategory } from "@/core/themes";
 import { CUSTOM_WALLPAPER_ID, WALLPAPERS, wallpaperBackground } from "@/core/wallpapers";
+import { profileStyle } from "@/ui/profile/ProfileView";
 import { PhonePreview } from "./PhonePreview";
 import { resizeImage } from "./resize-image";
 
@@ -82,18 +83,25 @@ export function AppearanceEditor({ initial }: { initial: ProfileData }) {
 
         <section className="panel" aria-labelledby="btn-h">
           <h2 id="btn-h">Botões</h2>
-          <div className="choice-grid choice-buttons" role="radiogroup" aria-labelledby="btn-h">
+          <p className="panel-sub">Cada exemplo já usa as cores e o fundo do seu tema.</p>
+          <div className="btn-grid" role="radiogroup" aria-labelledby="btn-h">
             {BUTTONS.map((b) => (
               <button
                 key={b.id}
                 type="button"
                 role="radio"
                 aria-checked={profile.buttonStyle === b.id}
-                className="choice"
+                className="btn-choice"
                 onClick={() => set({ buttonStyle: b.id })}
               >
-                <span className={`btn-sample btn-sample-${b.id}`} aria-hidden="true" />
-                {b.name}
+                <span className="pv pv-mini" data-mode={profile.mode} style={profileStyle(profile)} aria-hidden="true">
+                  <span className={`pv-link btn-${b.id}`}>
+                    <span className="pv-badge">IG</span>
+                    <span className="pv-title">Meu link</span>
+                    <span className="pv-badge-space" />
+                  </span>
+                </span>
+                <span className="btn-choice-name">{b.name}</span>
               </button>
             ))}
           </div>
@@ -278,7 +286,15 @@ function WallpaperSection({ profile, onChange }: { profile: ProfileData; onChang
   return (
     <section className="panel" aria-labelledby="wp-h">
       <h2 id="wp-h">Wallpaper</h2>
-      <p className="panel-sub">Os desenhos usam as cores do seu tema. Ou envie uma foto sua para o fundo.</p>
+      <div className="wp-own">
+        <ImagePicker
+          kind="wallpaper"
+          label="Meu wallpaper"
+          url={profile.wallpaperUrl}
+          onDone={(url) => onChange({ wallpaperUrl: url, wallpaperId: url ? CUSTOM_WALLPAPER_ID : theme.wallpaper })}
+        />
+        <p className="panel-sub">Envie qualquer imagem sua: ela cobre o fundo da página inteira. Ou escolha um dos fundos abaixo.</p>
+      </div>
       <div className="wp-grid" role="radiogroup" aria-labelledby="wp-h">
         {patterns.map((w) => (
           <button key={w.id} type="button" role="radio" aria-checked={profile.wallpaperId === w.id} className="wp-tile" onClick={() => onChange({ wallpaperId: w.id })}>
@@ -295,15 +311,9 @@ function WallpaperSection({ profile, onChange }: { profile: ProfileData; onChang
           onClick={() => onChange({ wallpaperId: CUSTOM_WALLPAPER_ID })}
         >
           <span className="wp-swatch" style={{ background: profile.wallpaperUrl ? wallpaperBackground("foto", pal, profile.wallpaperUrl) : pal.bg }} aria-hidden="true" />
-          <span>Sua foto</span>
+          <span>Meu wallpaper</span>
         </button>
       </div>
-      <ImagePicker
-        kind="wallpaper"
-        label="Foto de fundo"
-        url={profile.wallpaperUrl}
-        onDone={(url) => onChange({ wallpaperUrl: url, wallpaperId: url ? CUSTOM_WALLPAPER_ID : theme.wallpaper })}
-      />
     </section>
   );
 }
