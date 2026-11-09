@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { removeImageAction, updateAppearanceAction, updateProfileAction, uploadImageAction } from "@/app/actions/dashboard.actions";
 import { initials, type ProfileData } from "@/core/profile";
@@ -7,7 +8,7 @@ import { BUTTONS, CATEGORY_LABEL, FONTS, getTheme, MODES, THEMES, type ProfileMo
 import { CUSTOM_WALLPAPER_ID, WALLPAPERS, wallpaperBackground } from "@/core/wallpapers";
 import { profileStyle } from "@/ui/profile/ProfileView";
 import { PhonePreview } from "./PhonePreview";
-import { resizeImage } from "./resize-image";
+import { MAX_UPLOAD_BYTES, resizeImage } from "./resize-image";
 
 type SaveState = "idle" | "saving" | "saved" | "error";
 
@@ -191,24 +192,41 @@ function ImagePicker({
   kind, label, url, fallback, onDone,
 }: { kind: "avatar" | "wallpaper"; label: string; url: string | null; fallback?: string; onDone: (url: string | null) => void }) {
   const input = useRef<HTMLInputElement>(null);
+  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const [localPreview, setLocalPreview] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
   function pick(file: File | undefined) {
     if (!file) return;
     setError(null);
     startTransition(async () => {
+      let previewUrl: string | null = null;
       try {
         const blob = await resizeImage(file, kind === "avatar" ? 900 : 2000);
+        if (blob.size > MAX_UPLOAD_BYTES) throw new Error("Imagem grande demais. Tente uma menor ou tire um print dela.");
+        // Show the picked photo right away while it uploads.
+        previewUrl = URL.createObjectURL(blob);
+        setLocalPreview(previewUrl);
+        const ext = blob.type === "image/webp" ? "webp" : blob.type === "image/png" ? "png" : "jpg";
         const fd = new FormData();
         fd.set("kind", kind);
-        fd.set("file", blob, "image.webp");
+        fd.set("file", blob, `image.${ext}`);
         const res = await uploadImageAction(fd);
         if (!res.ok) return setError(res.error);
         onDone(res.value.url);
+        router.refresh(); // sidebar avatar and other server-rendered spots
       } catch (e) {
-        setError(e instanceof Error ? e.message : "Falha no envio.");
+        const message = e instanceof Error ? e.message : "";
+        // Network failures and Vercel's body limit surface as generic errors from the action call.
+        setError(
+          /fetch|network|body|exceeded|413|unexpected/i.test(message) || !message
+            ? "Não deu para enviar agora. Confira a internet e tente de novo."
+            : message,
+        );
       } finally {
+        setLocalPreview(null);
+        if (previewUrl) URL.revokeObjectURL(previewUrl);
         if (input.current) input.current.value = "";
       }
     });
@@ -217,25 +235,29 @@ function ImagePicker({
   function remove() {
     startTransition(async () => {
       const res = await removeImageAction(kind);
-      if (res.ok) onDone(null);
-      else setError(res.error);
+      if (res.ok) {
+        onDone(null);
+        router.refresh();
+      } else setError(res.error);
     });
   }
 
+  const shown = localPreview ?? url;
+
   return (
     <div className={`picker picker-${kind}`}>
-      <div className="picker-frame" aria-hidden="true">
-        {/* eslint-disable-next-line @next/next/no-img-element -- internal media route */}
-        {url ? <img src={url} alt="" /> : <span>{fallback ?? "+"}</span>}
+      <div className={`picker-frame${pending ? " is-loading" : ""}`} aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element -- internal media route or local blob preview */}
+        {shown ? <img src={shown} alt="" /> : <span>{fallback ?? "+"}</span>}
       </div>
-      <input ref={input} type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif" className="visually-hidden" id={`file-${kind}`} onChange={(e) => pick(e.target.files?.[0])} />
+      <input ref={input} type="file" accept="image/*" className="visually-hidden" id={`file-${kind}`} onChange={(e) => pick(e.target.files?.[0])} disabled={pending} />
       <div className="picker-actions">
         <label htmlFor={`file-${kind}`} className="btn btn-small" aria-disabled={pending}>
           {pending ? "Enviando…" : url ? `Trocar ${label.toLowerCase()}` : `Enviar ${label.toLowerCase()}`}
         </label>
         {url ? <button type="button" className="text-btn" onClick={remove} disabled={pending}>Remover</button> : null}
       </div>
-      <p className="hint">JPG, PNG ou WebP até 6 MB. Removemos a localização e os dados da câmera.</p>
+      <p className="hint">Qualquer foto do celular ou do computador. A gente reduz o tamanho e remove a localização e os dados da câmera.</p>
       {error ? <p className="form-error" role="alert">{error}</p> : null}
     </div>
   );

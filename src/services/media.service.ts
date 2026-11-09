@@ -36,7 +36,7 @@ async function reencode(input: Buffer, kind: MediaKind): Promise<Result<Buffer>>
         : pipeline.resize({ width: spec.size, height: spec.size, fit: "inside", withoutEnlargement: true });
     return ok(await resized.webp({ quality: spec.quality }).toBuffer());
   } catch {
-    return fail("Não deu para ler essa imagem.");
+    return fail("Não deu para ler essa imagem. Se for foto HEIC do iPhone, envie pelo próprio celular ou salve como JPG.");
   }
 }
 
